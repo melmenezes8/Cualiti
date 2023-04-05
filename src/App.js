@@ -1,16 +1,18 @@
-import "./App.css";
-import { Navbar } from "./Navbar";
-import { Home } from "./Home";
-import { Footer } from "./Footer";
+import './App.css';
+import { ItemList } from './components/ItemList/ItemList';
+import { Navbar } from './components/Navbar/Navbar';
 
 function App() {
+
+let saludo = "Bienvenido a nuestro nuevo mundo de saboress"
+
   return (
     <div className="App">
       <Navbar />
-      <Home />
-      <Footer />
+      <ItemList saludo={saludo} />
     </div>
   );
 }
 
 export default App;
+
