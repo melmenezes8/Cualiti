@@ -1,20 +1,27 @@
 
-import CartWidgets from "../CartWidget/CartWidgets"
+import CartWidget from "../CartWidget/CartWidget"
 import styles from "./Navbar.module.css"
+import { Outlet, Link } from "react-router-dom"
 
-export const Navbar = ()=>{
-
-    return <div className={styles.containerNavbar}>
-        <img
-        src="https://res.cloudinary.com/danotvxye/image/upload/v1680653196/logo_proyecto1_k0nkgd.jpg"
-        alt="this is logo"
-        />
-        <ul style={{display:"flex", gap:"30px"}}>
-            <li>Sin lactosa</li>
-            <li>Vegan</li>
-            <li>Keto</li>
+const Navbar = () => {
+  return (
+    <div>
+      <div className={styles.containerNavbar}>
+        <Link to="/">
+          <img style={{width:"72px"}} src="https://png.pngtree.com/element_our/20190603/ourlarge/pngtree-green-elliptical-leaf-illustration-image_1456945.jpg" alt="icono" />
+        </Link>
+        <ul style={{ display: "flex", gap: "30px", }}>
+          <Link to="/">Todo</Link>
+          <Link to="/category/Keto">Keto</Link>
+          <Link to="/category/Sin lactosa">Sin lactosa</Link>
+          <Link to="/category/Vegan">Vegan</Link>
         </ul>
-        <CartWidgets />
+        <CartWidget />
+      </div>
 
+      <Outlet />
     </div>
+  )
 }
+
+export default Navbar

@@ -1,15 +1,22 @@
 
+import React from 'react'
+import ItemCard from './ItemCard'
 
-export const ItemList = ( {saludo} ) => {
-  
+const ItemList = ({ items }) => {
 
+  return (
+    <div style={{
+      display: "flex"
+    }}>
+      {
+        items.map((item) => {
+          return (
+            <ItemCard item={item} key={item.id} />
+          )
+        })
+      }
+    </div>
+  )
+}
 
-    return (
-      <div>
-  
-        <h1>Natural Home</h1>
-        <h2>{saludo}</h2>
-      </div>
-    )
-  }
-  
+export default ItemList
