@@ -1,12 +1,33 @@
 import React from 'react'
+import styles from "./ItemDetail.module.css";
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import CounterContainer from  "../Counter/CounterContainer";
 
-const ItemDetail = ({ product }) => {
+export const ItemDetail = ({ product, onAdd, cantidadTotal }) =>  {
+
     return (
         <div>
-            <h2> {product.title} </h2>
-            <h2> {product.description} </h2>
-        </div>
-    )
-}
+            <div className={styles.containerItemDetail}>
+            <div className= {styles.containerImage}>
+              <imgs src= {product.img} alt="" />
+              </div>
+            </div>
+            
+            <div className= {styles.containerDetail}>
+            <h2 style= {{ fontFamily: "monospace" }}>
+              <span style={{ fontSize:"23px" }}>Nombre:</span> {product.title}
+            </h2>
 
-export default ItemDetail
+          <h2 style={{ fontFamilly: "monospace" }}> 
+            <span style={{ fontSize:"23px" }}>Descripcion:</span> {" "} 
+            {product.description}
+          </h2>
+
+          <h2 style={{ fontFamilly: "monospace" }}> 
+           <div>  <span style={{ fontSize:"23px" }}>Precio:</span> </div> 
+            ${product.price}.-</h2>
+        </div> 
+
+      
+ 
