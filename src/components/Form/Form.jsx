@@ -4,8 +4,8 @@ const Form = () => {
 
 const [userData, setUserData] = useState({
     nombre:"",
-    apellido:"",
-    mail:"",
+    email:"",
+    phone:"",
 });
 
 const handleChange = (e) => {
@@ -33,16 +33,16 @@ const envioDeFormulario = (evento) =>{
 
         <input 
         type="text" 
-        placeholder="apellido" 
-        name="apellido"
+        placeholder="email" 
+        name="email"
         value={userData.apellido}
         onChange={handleChange}
         /> 
 
         <input 
         type="text" 
-        placeholder="mail" 
-        name="mail"
+        placeholder="phone" 
+        name="phone"
         value={userData.mail}
         onChange={handleChange}
         />

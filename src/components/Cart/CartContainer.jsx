@@ -5,9 +5,9 @@ import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 
 
+
 const CartContainer = () => {
-  
-const { cart, deleteProductById,  getTotalPrice } = useContext(CartCotext)
+  const { cart, deleteProductById,  } = useContext( cartCotext)
 
 let total =  getTotalPrice()
 const navigate = useNavigate()

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
-
+import { useEffect, useState } from 'react'
 import ItemList from './ItemList';
 import { useParams } from 'react-router-dom';
 import { PropagateLoader } from 'react-spinners';
 import { db } from "../../firebaseConfig";
-import { getDocs, collection } from "firebase/firestore"
+import { getDocs, collection, query, where } from "firebase/firestore"
 import { products } from '../../productsMock';
 
 
@@ -15,7 +14,7 @@ const ItemListContainer = () => {
 
   useEffect(() => {
    let consulta;
-   const itemsCollection = collection(db, "products")
+   const itemCollection = collection(db, "products")
 
    if(categoryName){
     const itemsCollectionFiltered = query( itemCollection, where("category", "==", categoryName)) 
@@ -27,10 +26,10 @@ const ItemListContainer = () => {
  
 getDocs(consulta)
   .then((res) => {
-     const products = res.docs.map( products => {
+     const products = res.docs.map( product => {
       
       return {
-        ...products.date(),
+        ...product.data(),
         id: product.id
       }
      })

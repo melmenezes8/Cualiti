@@ -20,15 +20,16 @@ const agregarAlCarrito = (producto) => {
         if ( elemento.id === producto.id){
        return {
         ...elemento, 
-        quantity: elemento.quantity + producto.quantity}
+        quantity: elemento.quantity + producto.quantity,
+    };
         } else {
-            return elemento 
+            return elemento;
         } 
        });
        setCart(newCart);
 
-        } else { setCart( [...cart, producto] ) 
-        
+        } else { 
+            setCart([...cart, producto]);
         } 
     
 }; 

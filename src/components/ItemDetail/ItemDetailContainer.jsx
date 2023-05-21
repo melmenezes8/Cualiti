@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { ItemDetail }  from './ItemDetail'
-
 import { useParams } from "react-router-dom"
 import { CartContext } from '../../context/CartContext'
 import Swal from 'sweetalert2'
 import { db } from '../../firebaseConfig' 
 import { getDoc, collection, doc } from 'firebase/firestore'
+import { ItemDetail } from './ItemDetail'
+
 
 export const ItemDetailContainer = () => {
 
@@ -17,17 +18,28 @@ export const ItemDetailContainer = () => {
     const { id } = useParams()
 
     useEffect(() => {
-       
-const itemCollection = collection( db, "products")
-const refDoc = doc(itemCollection, id )
-getDoc(refDoc)
-.them((res) =>
-setProduct({
-    ...res.data(),
-    id: res.id,
-}))
 
-    }, [id])
+        const itemCollection = collection(db, "products");
+    
+        const refDoc = doc(itemCollection, id);
+    
+        getDoc(refDoc)
+    
+          .then((res) =>
+    
+            setProduct({
+    
+              ...res.data(),
+    
+              id: res.id,
+    
+            })
+    
+          )
+    
+          .catch((err) => console.log(err));
+    
+      }, [id]);
 
     const onAdd = ( cantidad )=> {
      let data = {

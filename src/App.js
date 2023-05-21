@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import CartContainer from "./components/Cart/CartContainer";
 import Form from "./components/Form/Form";
 import CartContextProvider from "./context/CartContext";
+import FormCheackoutContainer from "./components/FormCheckout/FormCheackoutContainer";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/itemDetail/:id" element={<ItemDetailContainer />} />
           <Route path="/cart" element={ <CartContainer/> } />
           <Route path="/form" element={ <Form />} />
+          <Route path="/checkout" element={ <FormCheackoutContainer />} />
           <Route path="*" element={<h1>La ruta no existe</h1>} />
         </Route>
       </Routes>
