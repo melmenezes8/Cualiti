@@ -1,56 +1,73 @@
-import { useEffect, useState } from 'react'
-import ItemList from './ItemList';
-import { useParams } from 'react-router-dom';
-import { PropagateLoader } from 'react-spinners';
+import { useEffect, useState } from "react";
+import ItemList from "./ItemList";
+import { useParams } from "react-router-dom";
+import { PropagateLoader } from "react-spinners";
 import { db } from "../../firebaseConfig";
-import { getDocs, collection, query, where } from "firebase/firestore"
-import { products } from '../../productsMock';
+import { getDocs, collection, query, where, addDoc } from "firebase/firestore";
+import { products } from "../../productsMock";
 
+import { ScaleLoader } from "react-spinners";
 
 const ItemListContainer = () => {
- const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
 
-  const { categoryName } = useParams()
+  const { categoryName } = useParams();
 
   useEffect(() => {
-   let consulta;
-   const itemCollection = collection(db, "products")
+    let consulta;
+    const itemCollection = collection(db, "products");
 
-   if(categoryName){
-    const itemsCollectionFiltered = query( itemCollection, where("category", "==", categoryName)) 
-  consulta = itemsCollectionFiltered
-  }else{
-    consulta = itemCollection
-  }
+    if (categoryName) {
+      const itemsCollectionFiltered = query(
+        itemCollection,
+        where("category", "==", categoryName)
+      );
+      consulta = itemsCollectionFiltered;
+    } else {
+      consulta = itemCollection;
+    }
 
- 
-getDocs(consulta)
-  .then((res) => {
-     const products = res.docs.map( product => {
-      
-      return {
-        ...product.data(),
-        id: product.id
-      }
-     })
-  
-    setItems(products)
-  })
-     .catch((err) => console.log(err));
+    getDocs(consulta)
+      .then((res) => {
+        const products = res.docs.map((product) => {
+          return {
+            ...product.data(),
+            id: product.id,
+          };
+        });
+
+        setItems(products);
+      })
+
+      .catch((err) => console.log(err));
   }, [categoryName]);
 
 
-  if ( items.length === 0 ){
-    return <div> style={{display: "flex", justifyContent: "center"}}
-    <ScaleLoader color= "hsla(137, 67%, 53%, 1)" size={35} width={18} margin={1} speedMultiplier={2} />
- </div>
+  const addProducts = ()=>{
+
+    const productsCollection = collection(db, "products")
+
+      products.map( product => (
+        addDoc(productsCollection, product)
+      ))
+
   }
 
+  
   return (
     <div>
-      <ItemList items={items} />
-    </div>
-  )
-}
+      {items.length === 0 ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <PropagateLoader color="red" size={40} />
+        </div>
+      ) : (
+        <ItemList items={items} />
+      )}
 
-export default ItemListContainer
+      <h1 style={{ color: items.length > 0 && "red" }}>Mi nombre es pepito</h1>
+
+      <button onClick={addProducts}>Agregar productos a firebase</button>
+    </div>
+  );
+};
+export default ItemListContainer;
